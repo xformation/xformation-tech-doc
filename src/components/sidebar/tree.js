@@ -98,8 +98,8 @@ const calculateTreeData = edges => {
     // sort items alphabetically.
     prevItems.map(item => {
       item.items = item.items.sort(function(a, b) {
-        if (a.label < b.label) return -1;
-        if (a.label > b.label) return 1;
+        // if (a.label < b.label) return -1;
+        // if (a.label > b.label) return 1;
         return 0;
       });
     });

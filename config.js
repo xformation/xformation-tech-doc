@@ -40,6 +40,7 @@ const config = {
     forcedNavOrder: [
       '/introduction', // add trailing slash if enabled above
       '/codeblock',
+      '/xformblock',
     ],
     collapsedNav: [
       '/codeblock', // add trailing slash if enabled above
