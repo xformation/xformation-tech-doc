@@ -5,12 +5,12 @@ import TreeNode from './treeNode';
 const calculateTreeData = edges => {
   const originalData = config.sidebar.ignoreIndex
     ? edges.filter(
-        ({
-          node: {
-            fields: { slug },
-          },
-        }) => slug !== '/'
-      )
+      ({
+        node: {
+          fields: { slug },
+        },
+      }) => slug !== '/'
+    )
     : edges;
 
   const tree = originalData.reduce(
@@ -18,7 +18,7 @@ const calculateTreeData = edges => {
       accu,
       {
         node: {
-          fields: { slug, title },
+          fields: { slug, title, order },
         },
       }
     ) => {
@@ -50,12 +50,14 @@ const calculateTreeData = edges => {
       if (existingItem) {
         existingItem.url = slug;
         existingItem.title = title;
+        existingItem.order = order;
       } else {
         prevItems.push({
           label: parts[slicedLength],
           url: slug,
           items: [],
           title,
+          order
         });
       }
       return accu;
@@ -97,7 +99,7 @@ const calculateTreeData = edges => {
     }
     // sort items alphabetically.
     prevItems.map(item => {
-      item.items = item.items.sort(function(a, b) {
+      item.items = item.items.sort(function (a, b) {
         // if (a.label < b.label) return -1;
         // if (a.label > b.label) return 1;
         return 0;
@@ -115,9 +117,41 @@ const calculateTreeData = edges => {
   }, tree);
 };
 
+const reOrderData = (items) => {
+  const ordered = {};
+  const unOrdered = {};
+  let unOrderedIndex = 0;
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i];
+    if (item.items && item.items.length > 0) {
+      item.items = reOrderData(item.items);
+    }
+    if (item.order) {
+      ordered[item.order] = item;
+    } else {
+      unOrdered[unOrderedIndex] = item;
+      unOrderedIndex++;
+    }
+  }
+  const result = [];
+  let keys = Object.keys(ordered);
+  keys.map((key) => {
+    result.push(ordered[key])
+  });
+  keys = Object.keys(unOrdered);
+  keys.map((key) => {
+    result.push(unOrdered[key])
+  });
+  return result;
+};
+
 const Tree = ({ edges }) => {
   let [treeData] = useState(() => {
-    return calculateTreeData(edges);
+    const data = calculateTreeData(edges);
+    let items = reOrderData(data.items);
+    return {
+      items
+    };
   });
 
   const defaultCollapsed = {};
