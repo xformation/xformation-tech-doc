@@ -89,7 +89,7 @@ export default class MDXRuntimeTest extends Component {
           ) : null}
           <link rel="canonical" href={canonicalUrl} />
         </Helmet>
-        <div className={'titleWrapper'}>
+        {/* <div className={'titleWrapper'}>
           <StyledHeading>{mdx.fields.title}</StyledHeading>
           <Edit className={'mobileView'}>
             {docsLocation && (
@@ -98,7 +98,7 @@ export default class MDXRuntimeTest extends Component {
               </Link>
             )}
           </Edit>
-        </div>
+        </div> */}
         <StyledMainWrapper>
           <MDXRenderer>{mdx.body}</MDXRenderer>
         </StyledMainWrapper>

@@ -90,7 +90,7 @@ const Header = ({ location, isDarkThemeActive, toggleActiveTheme }) => (
         },
       } = data;
 
-      const finalLogoLink = logo.link !== '' ? logo.link : 'https://hasura.io/';
+      const finalLogoLink = logo.link !== '' ? logo.link : 'https://determined-dijkstra-95a0e8.netlify.app/';
 
       return (
         <div className={'navBarWrapper'}>
@@ -164,21 +164,21 @@ const Header = ({ location, isDarkThemeActive, toggleActiveTheme }) => (
                 ) : null}
                 {config.header.social ? (
                   <li className={'hiddenMobile'}>
-                    <ul
+                    {/* <ul
                       className="socialWrapper"
                       dangerouslySetInnerHTML={{ __html: config.header.social }}
-                    ></ul>
+                    ></ul> */}
                   </li>
                 ) : null}
                 {githubUrl !== '' ? (
                   <li className={'githubBtn'}>
-                    <GitHubButton
+                    {/* <GitHubButton
                       href={githubUrl}
                       data-show-count="true"
                       aria-label="Star on GitHub"
                     >
                       Star
-                    </GitHubButton>
+                    </GitHubButton> */}
                   </li>
                 ) : null}
                 <li>
